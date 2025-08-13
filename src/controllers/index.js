@@ -1,4 +1,4 @@
-const {renderService} = require('../services');
+const {renderService, cacheService} = require('../services');
 
 const healthStatus = (req, res, next) => {
     res.json({'healthy': true});
@@ -25,7 +25,7 @@ const createPreview = async (req, res, next) => {
         const result = await renderService.create3DPreviewPages(domain, uid, pages, width, height);
         res.json(result);
     } catch (err) {
-        console.error(`Error while getting programming languages`, err.message);
+        console.error(`Error while processing preview request`, err.message);
         next(err);
     }
 }
@@ -39,7 +39,6 @@ const renderBook = async (req, res, next) => {
         const height = req.query.height;
         const redirectUrl = req.query.redirectUrl;
         const withBorder = (req.query.withBorder || '').toLowerCase() === 'true';
-        console.log(withBorder);
         if(redirectUrl){
             console.log(`Start rendering in background mode, uid: ${uid}, domain: ${domain}`);
             renderService.startRender(domain, uid, pages, width, height, withBorder).then(() => {});
@@ -49,7 +48,18 @@ const renderBook = async (req, res, next) => {
         const result = await renderService.startRender(domain, uid, pages, width, height, withBorder);
         res.json(result);
     } catch (err) {
-        console.error(`Error while getting programming languages`, err.message);
+        console.error(`Error while processing render request`, err.message);
+        next(err);
+    }
+}
+
+const cacheImages = async (req, res, next) => {
+    try {
+        console.log(req.body)
+        await cacheService.cacheImages(req.body);
+        res.json([]);
+    } catch (err) {
+        console.error(`Error while processing cache request`, err.message);
         next(err);
     }
 }
@@ -57,5 +67,6 @@ const renderBook = async (req, res, next) => {
 module.exports = {
     healthStatus,
     createPreview,
+    cacheImages,
     renderBook
 }

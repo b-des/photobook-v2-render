@@ -33,7 +33,8 @@ const minimal_args = [
     '--no-zygote',
     '--password-store=basic',
     '--use-gl=swiftshader',
-    '--use-mock-keychain'
+    '--use-mock-keychain',
+    '--disk-cache-size=1048576000'
 ];
 module.exports = {
     minimal_args

@@ -4,6 +4,7 @@ const controller = require('../controllers/index')
 
 router.get('/photobook/preview', controller.createPreview);
 router.get('/photobook/render', controller.renderBook);
+router.post('/photobook/cache', controller.cacheImages);
 router.get('/health/status', controller.healthStatus);
 
 router.get('/', function(req, res){
