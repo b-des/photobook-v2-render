@@ -154,7 +154,7 @@ class Page {
         await this.page.goto(url,
             {
                 timeout: BROWSER_TIMEOUT,
-                waitUntil: ['load', 'domcontentloaded', 'networkidle0', 'networkidle2']
+                //waitUntil: ['load', 'domcontentloaded', 'networkidle0', 'networkidle2']
             })
         let end = Date.now();
         console.log(`Page has been loaded in ${(end - start) / 1000} seconds`);
