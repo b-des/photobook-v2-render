@@ -178,7 +178,7 @@ class Page {
             width: width + this.coverExtraWidth,
             height: height
         });
-        console.log(`Viewport: ${width + this.coverExtraWidth}, ${height}`);
+        console.log(`Viewport: ${width + this.coverExtraWidth}(where extra width is: ${this.coverExtraWidth}), ${height}`);
     }
 
     async close() {
