@@ -28,7 +28,7 @@ class Browser {
         let height = 1000;
         let browser = await puppeteer.launch({
             executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
-            headless: false,
+            headless: true,
             ignoreHTTPSErrors: true,
             args: [...minimal_args, `--window-size=${width},${height}`],
             dumpio: false,
