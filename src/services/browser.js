@@ -112,21 +112,21 @@ class Page {
 
     static async createPage(browser, uid) {
         let page = await browser.browser.newPage();
+        const instance = new Page(browser, page, uid);
         page.on('console', msg => {
             const message = msg.text();
             if (message.startsWith('COVER_EXTRA:')) {
                 let coverExtraWidth = parseInt(msg.text().replace('COVER_EXTRA:', '') || 0);
                 console.log(`Cover extra width: ${coverExtraWidth}`);
-                this.prototype.setCoverExtraWidth(coverExtraWidth);
+                instance.setCoverExtraWidth(coverExtraWidth);
             }
         });
 
-        return new Page(browser, page, uid);
+        return instance;
     }
 
     setCoverExtraWidth(width) {
         this.coverExtraWidth = width;
-        console.log('Set cover extra width: ' + width)
     }
 
     getCoverExtraWidth() {

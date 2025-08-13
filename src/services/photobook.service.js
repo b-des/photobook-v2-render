@@ -48,7 +48,7 @@ const startRender = async (domain, uid, totalPages, width, height, withBorder) =
         const destFile = `${destinationPath}/${currentPage}.jpg`;
         await page.goto(url);
         await page.setViewport({
-            width: browserWidth + page.getCoverExtraWidth(),
+            width: browserWidth,
             height: browserHeight
         });
         await page.screenshot(destFile);
