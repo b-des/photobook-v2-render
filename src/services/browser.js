@@ -126,6 +126,7 @@ class Page {
 
     setCoverExtraWidth(width) {
         this.coverExtraWidth = width;
+        console.log('Set cover extra width: ' + width)
     }
 
     getCoverExtraWidth() {
