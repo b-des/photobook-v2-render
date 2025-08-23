@@ -32,6 +32,8 @@ const createCoverPages = async (image, width, height, destinationPath, borderSiz
         });
     }
 
+    console.log(`Saving cover right: ${coverLeft.width}x${coverLeft.height} to ${destinationPath}/cover-right.jpg`)
+    console.log(`Saving cover left: ${coverLeft.width}x${coverLeft.height} to ${destinationPath}/cover-left.jpg`)
     await coverRight.save(`${destinationPath}/cover-right.jpg`);
     await coverLeft.save(`${destinationPath}/cover-left.jpg`);
 
@@ -77,8 +79,10 @@ const createPages = async (number, totalPages, image, borderSize, viewPortWidth,
 }
 
 const pageExists = (destinationPath, page) => {
-    if(page === 1) {
-        return fs.existsSync(`${destinationPath}/cover-left.jpg`) && fs.existsSync(`${destinationPath}/cover-right.jpg`);
+    if (page === 1) {
+        console.log('Page 1 - force rendering of cover pages')
+        return false;
+        // return fs.existsSync(`${destinationPath}/cover-left.jpg`) && fs.existsSync(`${destinationPath}/cover-right.jpg`);
     }
     const existsSync = fs.existsSync(`${destinationPath}/${page}.jpg`);
     console.log(`File \`${destinationPath}/${page}.jpg\` exists: ${existsSync}`);
