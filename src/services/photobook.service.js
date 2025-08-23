@@ -97,7 +97,7 @@ const create3DPreviewPages = async (domain, uid, totalPages, width, height) => {
         const destFile = `${destinationPath}/full-${currentPage}.jpg`;
         const fileExists = fs.existsSync(destFile)
         console.log(`File exists: ${fileExists} and in cache: ${inCacheWithoutModification} for ${url}`)
-        if (!inCacheWithoutModification || !fileExists) {
+        if ((!inCacheWithoutModification || !fileExists) && currentPage !== 1) {
             await page.goto(url);
             await page.setViewport({
                 width: browserWidth,
@@ -129,7 +129,7 @@ const create3DPreviewPages = async (domain, uid, totalPages, width, height) => {
     console.log('All pages have been created. Now bending the first and last page valves.')
     await bendFirstPageValve(destinationPath);
     await bendSecondLastPageValve(totalPages, destinationPath);
-   // deleteTmpFiles(destinationPath, totalPages);
+    //deleteTmpFiles(destinationPath, totalPages);
     console.log('Border created');
     return {data: resultLinks}
 }
