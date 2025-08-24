@@ -18,11 +18,11 @@ class Browser {
     static async createInstance(uid) {
         console.log('Creating browser instance with uid: ' + uid)
         const userDataDir = path.join(puppeteerCacheDir, uid);
-        if (fs.existsSync(userDataDir)) {
-            await fs.rm(userDataDir, {recursive: true}, (e) => {
-                console.log(`Removed ${userDataDir} with error: ${e}`);
-            });
-        }
+        // if (fs.existsSync(userDataDir)) {
+        //     await fs.rm(userDataDir, {recursive: true}, (e) => {
+        //         console.log(`Removed ${userDataDir} with error: ${e}`);
+        //     });
+        // }
         let width = 1000;
         let height = 1000;
         let browser = await puppeteer.launch({
