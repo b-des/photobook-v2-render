@@ -66,7 +66,6 @@ const createPages = async (number, totalPages, image, borderSize, width, height,
     console.log(
         `Saving page ${number}: ${image.width}x${image.height} to ${destinationPath}/${number}.jpg`
     );
-    console.log()
     const isSecondPage = number === 2;
     const isSecondLastPage = number + 1 === totalPages * 2 - 1;
     let leftImage = image.clone().crop({
