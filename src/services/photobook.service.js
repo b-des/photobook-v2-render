@@ -95,7 +95,7 @@ const create3DPreviewPages = async (domain, uid, totalPages, width, height) => {
         const url = placeholdify(renderPage, domain, uid, currentPage - 1, browserWidth, browserHeight, false);
         const inCacheWithoutModification = await existAndEquals(`${uid}-${currentPage}`, await page.getDOM(url));
         const destFile = `${destinationPath}/full-${currentPage}.jpg`;
-        const fileExists = false;//pageExists(destFile, page)
+        const fileExists = pageExists(destFile, page)
         console.log(`File exists: ${fileExists} and in cache: ${inCacheWithoutModification} for ${url}`)
         if (!inCacheWithoutModification || !fileExists) {
             await page.goto(url);
