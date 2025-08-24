@@ -2,6 +2,11 @@ const fs = require("fs");
 const {Image} = require("image-js");
 
 const createCoverPages = async (image, width, height, destinationPath, borderSize, totalPages, coverExtraWidth) => {
+    if (width % 2 !== 0) {
+        console.log(`Width is not even. Adding 1 to width: ${width}`)
+        width = width + 1;
+        image = image.resize({width: width, height: height});
+    }
     // create left part of cover
     let coverLeft = image.clone().crop({
         x: 0,
