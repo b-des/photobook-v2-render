@@ -87,7 +87,6 @@ const create3DPreviewPages = async (domain, uid, totalPages, width, height) => {
         });
     }
     console.log(`Creating 3D preview for ${domain} with uid: ${uid} and total pages: ${totalPages}`);
-    let viewPortWidth = browserWidth;
     const browser = await Browser.createInstance(uid);
     let page = await browser.createPage(uid)
     const resultLinks = [];
@@ -108,13 +107,13 @@ const create3DPreviewPages = async (domain, uid, totalPages, width, height) => {
 
             let coverExtraWidth = page.getCoverExtraWidth();
             let image = await Image.load(destFile);
-            let borderSize = currentPage === 1 ? Math.round((viewPortWidth + coverExtraWidth) / 100 * 3) : Math.round(image.height - image.height / 1.02040);
+            let borderSize = currentPage === 1 ? Math.round((browserWidth + coverExtraWidth) / 100 * 3) : Math.round(image.height - image.height / 1.02040);
 
             // if cover is rendering
             if (currentPage === 1) {
-                await createCoverPages(image, viewPortWidth, browserHeight, destinationPath, borderSize, totalPages, coverExtraWidth);
+                await createCoverPages(image, browserWidth, browserHeight, destinationPath, borderSize, totalPages, coverExtraWidth);
             } else {
-                await createPages(number, totalPages, image, borderSize, viewPortWidth, browserHeight, destinationPath);
+                await createPages(number, totalPages, image, borderSize, browserWidth, browserHeight, destinationPath);
             }
         }
 

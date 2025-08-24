@@ -57,21 +57,30 @@ const createCoverPages = async (image, width, height, destinationPath, borderSiz
 }
 
 // slice and save regular pages
-const createPages = async (number, totalPages, image, borderSize, viewPortWidth, browserHeight, destinationPath) => {
+const createPages = async (number, totalPages, image, borderSize, width, height, destinationPath) => {
+    if (width % 2 !== 0) {
+        console.log(`Width is not even. Adding 1 to width: ${width}`)
+        width = width + 1;
+        image = image.resize({width: width, height: height});
+    }
+    console.log(
+        `Saving page ${number}: ${image.width}x${image.height} to ${destinationPath}/${number}.jpg`
+    );
+    console.log()
     const isSecondPage = number === 2;
     const isSecondLastPage = number + 1 === totalPages * 2 - 1;
     let leftImage = image.clone().crop({
         x: isSecondPage ? 0 : borderSize,
         y: isSecondPage ? 0 : borderSize,
-        width: viewPortWidth / 2 - (isSecondPage ? 0 : borderSize),
-        height: browserHeight - (isSecondPage ? 0 : borderSize * 2)
+        width: width / 2 - (isSecondPage ? 0 : borderSize),
+        height: height - (isSecondPage ? 0 : borderSize * 2)
     })
 
     let rightImage = image.clone().crop({
-        x: viewPortWidth / 2,
+        x: width / 2,
         y: isSecondLastPage ? 0 : borderSize,
-        width: viewPortWidth / 2 - (isSecondLastPage ? 0 : borderSize),
-        height: browserHeight - (isSecondLastPage ? 0 : borderSize * 2)
+        width: width / 2 - (isSecondLastPage ? 0 : borderSize),
+        height: height - (isSecondLastPage ? 0 : borderSize * 2)
     });
 
     await leftImage.save(`${destinationPath}/${number}.jpg`);
