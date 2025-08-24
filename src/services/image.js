@@ -92,8 +92,8 @@ const pageExists = (destinationPath, page) => {
         return false;
         // return fs.existsSync(`${destinationPath}/cover-left.jpg`) && fs.existsSync(`${destinationPath}/cover-right.jpg`);
     }
-    const existsSync = fs.existsSync(`${destinationPath}/${page}.jpg`);
-    console.log(`File \`${destinationPath}/${page}.jpg\` exists: ${existsSync}`);
+    const existsSync = fs.existsSync(destinationPath);
+    console.log(`File \`${destinationPath}\` exists: ${existsSync}`);
     return existsSync;
 }
 
