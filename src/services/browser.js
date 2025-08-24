@@ -25,7 +25,7 @@ class Browser {
         // }
         let width = 1000;
         let height = 1000;
-        let browser = await puppeteer.launch({
+        const options = {
             executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
             protocolTimeout: parseInt(process.env.PUPPETEER_PROTOCOL_TIMEOUT) || 30000,
             headless: true,
@@ -37,7 +37,19 @@ class Browser {
                 width: width,
                 height: height
             }
-        })
+        };
+        let browser;
+        try {
+            browser = await puppeteer.launch(options)
+        } catch (e) {
+            console.log(`Error while launching browser: ${e}, trying to remove ${userDataDir} and launch again`);
+            if (fs.existsSync(userDataDir)) {
+                await fs.rm(userDataDir, {recursive: true}, (e) => {
+                    console.log(`Removed ${userDataDir} with error: ${e}`);
+                });
+            }
+            browser = await puppeteer.launch(options)
+        }
 
         let page = await browser.newPage();
         page.on('console', msg => {
