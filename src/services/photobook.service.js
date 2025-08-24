@@ -88,6 +88,7 @@ const create3DPreviewPages = async (domain, uid, totalPages, width, height) => {
     }
     console.log(`Creating 3D preview for ${domain} with uid: ${uid} and total pages: ${totalPages}`);
     let viewPortWidth = browserWidth;
+    const browser = await Browser.createInstance(uid);
     let page = await browser.createPage(uid)
     const resultLinks = [];
     for (let currentPage = 1; currentPage <= totalPages; currentPage++) {
@@ -125,6 +126,7 @@ const create3DPreviewPages = async (domain, uid, totalPages, width, height) => {
         socketService.emit(uid, 'progress', progress);
     }
     await page.close();
+    await browser.close();
 
     console.log('All pages have been created. Now bending the first and last page valves.')
     await bendFirstPageValve(destinationPath);
