@@ -92,6 +92,7 @@ const createPages = async (number, totalPages, image, borderSize, width, height,
 }
 
 const pageExists = (destinationPath, page) => {
+    console.log(`Checking if page ${page} exists in ${destinationPath}`)
     if (page === 1) {
         console.log('Page 1 - force rendering of cover pages')
         return false;
