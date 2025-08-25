@@ -42,6 +42,7 @@ const startRender = async (domain, uid, totalPages, width, height, withBorder) =
     const browserWidth = bookWidth + (withBorder ? additionalBorderWidth * 2 : 0);
     const browserHeight = bookHeight + (withBorder ? additionalBorderWidth : 0);
     console.log(`Starting render for ${domain} with uid: ${uid} and total pages: ${totalPages}`);
+    const browser = await Browser.createInstance(uid);
     let page = await browser.createPage(uid)
     for (let currentPage = 1; currentPage <= totalPages; currentPage++) {
         const url = placeholdify(renderPage, domain, uid, currentPage - 1, bookWidth, bookHeight, true);
@@ -55,6 +56,7 @@ const startRender = async (domain, uid, totalPages, width, height, withBorder) =
         links.push(`https://${domain}/${relativePath}/${uid}/${currentPage}.jpg`);
     }
     await page.close();
+    await browser.close();
     const end = Date.now();
     console.log(`Total execution time: ${(end - start) / 1000} seconds`);
 
