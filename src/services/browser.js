@@ -12,6 +12,7 @@ class Browser {
     constructor(browser, page, uid) {
         this.browser = browser;
         this.page = page;
+        this.uid = uid;
         console.log('Browser created with uid: ' + uid)
     }
 
@@ -111,7 +112,7 @@ class Browser {
     async close() {
         await this.page.close()
         await this.browser.close()
-        console.log('Browser closed')
+        console.log(`Browser closed, uid: ${this.uid}`)
     }
 }
 
@@ -195,7 +196,7 @@ class Page {
 
     async close() {
         await this.page.close()
-        console.log('Page closed')
+        console.log(`Page closed, uid: ${this.uid}`)
     }
 }
 
